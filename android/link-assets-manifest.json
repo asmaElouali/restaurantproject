@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/app_icons.ttf",
+      "sha1": "18e5fe2f93c853bbb495975f04df56438d595de5"
+    },
+    {
+      "path": "src/assets/images/nav_icons/humberger.png",
+      "sha1": "6d9e78516eb0ac37ce0284a0fbaf086a1ef02292"
+    },
+    {
+      "path": "src/assets/images/salade/salade.jpg",
+      "sha1": "4dfaa750f73b841b5584c1eff2d0c44292fcbe39"
+    },
+    {
+      "path": "src/assets/images/salade/saladfile.png",
+      "sha1": "f701b92eb6f2c55a4a7a4d296a69dd15ebc654db"
+    }
+  ]
+}

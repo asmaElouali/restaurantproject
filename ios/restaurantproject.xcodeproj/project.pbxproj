@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-restaurantproject-restaurantprojectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-restaurantproject-restaurantprojectTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		0A81438FF74A4427B44BF515 /* app_icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB0A6741B76E4D75BE829FDD /* app_icons.ttf */; };
+		B31B1ED5B2B6433C923C3176 /* humberger.png in Resources */ = {isa = PBXBuildFile; fileRef = 913D24F6E9A141318499A04D /* humberger.png */; };
+		547561071C1D452EB2FDE134 /* saladfile.png in Resources */ = {isa = PBXBuildFile; fileRef = F627DF0B997E47C5ACB20D6D /* saladfile.png */; };
+		DC46F5D3228C41CF9942CC6D /* salade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 92EDE6B08B8F441AA1346E7A /* salade.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = restaurantproject/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = restaurantproject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = restaurantproject/main.m; sourceTree = "<group>"; };
-	    13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = restaurantproject/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = restaurantproject/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-restaurantproject-restaurantprojectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-restaurantproject-restaurantprojectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-restaurantproject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restaurantproject.debug.xcconfig"; path = "Target Support Files/Pods-restaurantproject/Pods-restaurantproject.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-restaurantproject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restaurantproject.release.xcconfig"; path = "Target Support Files/Pods-restaurantproject/Pods-restaurantproject.release.xcconfig"; sourceTree = "<group>"; };
@@ -45,6 +49,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = restaurantproject/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-restaurantproject-restaurantprojectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restaurantproject-restaurantprojectTests.release.xcconfig"; path = "Target Support Files/Pods-restaurantproject-restaurantprojectTests/Pods-restaurantproject-restaurantprojectTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EB0A6741B76E4D75BE829FDD /* app_icons.ttf */ = {isa = PBXFileReference; name = "app_icons.ttf"; path = "../src/assets/fonts/app_icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		913D24F6E9A141318499A04D /* humberger.png */ = {isa = PBXFileReference; name = "humberger.png"; path = "../src/assets/images/nav_icons/humberger.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F627DF0B997E47C5ACB20D6D /* saladfile.png */ = {isa = PBXFileReference; name = "saladfile.png"; path = "../src/assets/images/salade/saladfile.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		92EDE6B08B8F441AA1346E7A /* salade.jpg */ = {isa = PBXFileReference; name = "salade.jpg"; path = "../src/assets/images/salade/salade.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +132,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				7AF62AE71E594FA981212428 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +158,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		7AF62AE71E594FA981212428 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				EB0A6741B76E4D75BE829FDD /* app_icons.ttf */,
+				913D24F6E9A141318499A04D /* humberger.png */,
+				F627DF0B997E47C5ACB20D6D /* saladfile.png */,
+				92EDE6B08B8F441AA1346E7A /* salade.jpg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -245,6 +266,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				0A81438FF74A4427B44BF515 /* app_icons.ttf in Resources */,
+				B31B1ED5B2B6433C923C3176 /* humberger.png in Resources */,
+				547561071C1D452EB2FDE134 /* saladfile.png in Resources */,
+				DC46F5D3228C41CF9942CC6D /* salade.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
