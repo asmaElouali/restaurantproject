@@ -72,6 +72,7 @@ const getSubCategoryList = (category: string, data: any) => {
         return list;
     } else {
         let categoryData = data.find((item: any) => item.name === category);
+        console.log("ttttttt",categoryData);
         if (categoryData) {
             console.log("subcategorieCategory", categoryData);
             return categoryData.subcategories;
@@ -107,6 +108,32 @@ const getItems = (subcategorie: string, data: any) => {
         }
     }
 }
+/*const getItems = (categorie: string, subcategorie: string, data: any) => {
+    let list: any = [];
+
+    // Si aucune sous-catégorie spécifiée, renvoyer tous les items
+    if (subcategorie === '') {
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].subcategories.length; j++) {
+                list = list.concat(data[i].subcategories[j].items);
+            }
+        }
+    } else {
+        // Rechercher les items dans la catégorie et sous-catégorie spécifiée
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].name === categorie) {
+                let subcategorylist = data[i].subcategories.filter((item: any) => item.name === subcategorie);
+                if (subcategorylist.length > 0) {
+                    list = subcategorylist[0].items;
+                    break;
+                }
+            }
+        }
+    }
+
+    return list;
+}*/
+
 
 
 const Menu = ({ navigation }: any) => {
@@ -256,7 +283,7 @@ const Menu = ({ navigation }: any) => {
                     data={sortedSubCategory}
                     keyExtractor={item => item.name}
                     contentContainerStyle={[styles.FlatListContainer, /*{ marginBottom: tabBarHeight }*/]}
-                    renderItem={({ item, index }) => {
+                    renderItem={({ item, index}) => {
                         console.log("Item: ", item.name);
                         return (
                             <TouchableOpacity onPress={() => {
@@ -267,8 +294,6 @@ const Menu = ({ navigation }: any) => {
                                 setSubgategory({ index: index, subcategory: subcategorie[index] });
                                 //setCategoryIndex({ index: index, category: categories[index] });
                                 setSortedItem([...getItems(subcategorie[index], MenuList),]);
-
-
 
                             }}>
 

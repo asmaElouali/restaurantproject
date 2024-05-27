@@ -8,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import CustomIcon from "../components/CustomIcon";
 import CartScreen from "../screens/CartScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
+import OrderHistoryScreen from "../screens/OrderHistoryScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -55,6 +56,20 @@ const TabNavigator = () => {
                     tabBarIcon: ({ focused, color, size }) => (
                         <CustomIcon
                             name="like"
+                            size={25}
+                            color={
+                                focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+                            }
+                        />
+                    ),
+                }}></Tab.Screen>
+            <Tab.Screen
+                name="History"
+                component={OrderHistoryScreen}
+                options={{
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <CustomIcon
+                            name="bell"
                             size={25}
                             color={
                                 focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex

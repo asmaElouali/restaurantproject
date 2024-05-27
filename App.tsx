@@ -12,7 +12,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DetailsScreen from './src/screens/DetailsScreen';
 import TabNavigator from "./src/navigator/TabNavigator";
 import MenuData from "./src/data/MenuData";
-
+import OrderItemCard from "./src/components/OrderItemCard";
+import PaymentScreen from "./src/screens/PaymentScreen";
 
 /*const Stack = createNativeStackNavigator();
 export default class App extends Component {
@@ -42,12 +43,11 @@ export default class App extends Component {
     );
   }
 }*/
-
 /*const App = () => {
   console.log("Globale data",MenuData[0].subcategories[0].items);
   return (
     <View style={global_styles.content}>
-      <Menu />
+      <OrderItemCard/>
     </View>
   );
 };
@@ -56,20 +56,25 @@ export default App;*/
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  /*useEffect(() => {
+  useEffect(() => {
     SplashScreen.hide();
-  }, []);*/
+  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="Tab"
           component={TabNavigator}
-          options={{animation: 'slide_from_bottom'}}>
+          options={{ animation: 'slide_from_bottom' }}>
         </Stack.Screen>
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
+          options={{ animation: 'slide_from_bottom' }}>
+        </Stack.Screen>
+        <Stack.Screen
+          name="Payment"
+          component={PaymentScreen}
           options={{ animation: 'slide_from_bottom' }}>
         </Stack.Screen>
       </Stack.Navigator>

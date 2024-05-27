@@ -18,9 +18,9 @@ const CartScreen = ({ navigation, route }: any) => {
     const tabBarHeight = useBottomTabBarHeight();
     console.log("cartlistItem",CartList[0]);
     console.log("CartPrice:",CartPrice)
-    /*const buttonPressHandler = () => {
+    const buttonPressHandler = () => {
         navigation.push('Payment', { amount: CartPrice });
-    };*/
+    };
 
     const incrementCartItemQuantityHandler = (index: number) => {
         incrementCartItemQuantity(index);
@@ -50,7 +50,7 @@ const CartScreen = ({ navigation, route }: any) => {
                                     <TouchableOpacity onPress={() => {
                                         navigation.push('Details', {
                                             index: data.index,
-                                            price: data.prices[0].price,
+                                            price: data.price,
                                             name: data.name,
                                             image: data.image,
                                         });
@@ -65,7 +65,7 @@ const CartScreen = ({ navigation, route }: any) => {
 
                     </View>
                     {CartList.length != 0 ? (
-                        <PaymentFooter price={CartPrice} buttonPressHandler={""} buttonTitle="Pay" />
+                        <PaymentFooter price={CartPrice} buttonPressHandler={buttonPressHandler} buttonTitle="Pay" />
                     ) : (
                         <></>
                     )}
