@@ -1,5 +1,5 @@
-import React, { Component, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { Component, useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import { global_styles } from './src/style/globalstyle';
 //import DinningTable from "./screens/DinningTable";
 //import Pinauthentication from "./screens/Pinauthentication";
@@ -14,6 +14,17 @@ import TabNavigator from "./src/navigator/TabNavigator";
 import MenuData from "./src/data/MenuData";
 import OrderItemCard from "./src/components/OrderItemCard";
 import PaymentScreen from "./src/screens/PaymentScreen";
+import Passcode from "./src/screens/Passcode";
+import RvcScreen from "./src/screens/RvcScreen";
+import OrderHistory from "./src/screens/OrderHistoryScreen";
+import ModalTester from "./src/components/ModalComponent";
+import HeaderBar from "./src/components/HeaderBar";
+//import ScannerScreen from "./src/screens/Scanner";
+//import QRCodeScanner from "react-native-qrcode-scanner";
+//import { RNCamera } from "react-native-camera";
+import Scanner from "./src/screens/Scanner";
+
+
 
 /*const Stack = createNativeStackNavigator();
 export default class App extends Component {
@@ -44,11 +55,9 @@ export default class App extends Component {
   }
 }*/
 /*const App = () => {
-  console.log("Globale data",MenuData[0].subcategories[0].items);
+  // console.log("Globale data", MenuData[0].subcategories[0].items);
   return (
-    <View style={global_styles.content}>
-      <OrderItemCard/>
-    </View>
+    <Scanner/>
   );
 };
 
@@ -63,9 +72,29 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
+          name="passcode"
+          component={Passcode}
+          options={{ animation: 'slide_from_bottom' }} >
+        </Stack.Screen>
+        <Stack.Screen
+          name="rvc"
+          component={RvcScreen}
+          options={{ animation: 'slide_from_bottom' }} >
+        </Stack.Screen>
+        <Stack.Screen
+          name="history"
+          component={OrderHistory}
+          options={{ animation: 'slide_from_bottom' }} >
+        </Stack.Screen>
+        <Stack.Screen
           name="Tab"
           component={TabNavigator}
           options={{ animation: 'slide_from_bottom' }}>
+        </Stack.Screen>
+        <Stack.Screen
+          name="qr-code"
+          component={Scanner}
+          options={{ animation: 'slide_from_bottom' }} >
         </Stack.Screen>
         <Stack.Screen
           name="Details"

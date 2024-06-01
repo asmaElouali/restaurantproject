@@ -18,6 +18,10 @@
 		B31B1ED5B2B6433C923C3176 /* humberger.png in Resources */ = {isa = PBXBuildFile; fileRef = 913D24F6E9A141318499A04D /* humberger.png */; };
 		547561071C1D452EB2FDE134 /* saladfile.png in Resources */ = {isa = PBXBuildFile; fileRef = F627DF0B997E47C5ACB20D6D /* saladfile.png */; };
 		DC46F5D3228C41CF9942CC6D /* salade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 92EDE6B08B8F441AA1346E7A /* salade.jpg */; };
+		59FD3F931D1B41FDA17B832B /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA7CD8B7F9ED426192E7EAEA /* Ionicons.ttf */; };
+		7A9F82F761824C999D299AA5 /* amazonpay.png in Resources */ = {isa = PBXBuildFile; fileRef = 354CFF0B11474E77BCCC81C8 /* amazonpay.png */; };
+		920137035CAC48788E48A894 /* applepay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF52289722944CFAFE34170 /* applepay.png */; };
+		32B1E09698F04FAE87B675CD /* gpay.png in Resources */ = {isa = PBXBuildFile; fileRef = E34C3B635C7246D5B0E9255D /* gpay.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 		913D24F6E9A141318499A04D /* humberger.png */ = {isa = PBXFileReference; name = "humberger.png"; path = "../src/assets/images/nav_icons/humberger.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		F627DF0B997E47C5ACB20D6D /* saladfile.png */ = {isa = PBXFileReference; name = "saladfile.png"; path = "../src/assets/images/salade/saladfile.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		92EDE6B08B8F441AA1346E7A /* salade.jpg */ = {isa = PBXFileReference; name = "salade.jpg"; path = "../src/assets/images/salade/salade.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BA7CD8B7F9ED426192E7EAEA /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../src/assets/fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		354CFF0B11474E77BCCC81C8 /* amazonpay.png */ = {isa = PBXFileReference; name = "amazonpay.png"; path = "../src/assets/images/paymentMode/amazonpay.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8EF52289722944CFAFE34170 /* applepay.png */ = {isa = PBXFileReference; name = "applepay.png"; path = "../src/assets/images/paymentMode/applepay.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E34C3B635C7246D5B0E9255D /* gpay.png */ = {isa = PBXFileReference; name = "gpay.png"; path = "../src/assets/images/paymentMode/gpay.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +174,10 @@
 				913D24F6E9A141318499A04D /* humberger.png */,
 				F627DF0B997E47C5ACB20D6D /* saladfile.png */,
 				92EDE6B08B8F441AA1346E7A /* salade.jpg */,
+				BA7CD8B7F9ED426192E7EAEA /* Ionicons.ttf */,
+				354CFF0B11474E77BCCC81C8 /* amazonpay.png */,
+				8EF52289722944CFAFE34170 /* applepay.png */,
+				E34C3B635C7246D5B0E9255D /* gpay.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -270,6 +282,10 @@
 				B31B1ED5B2B6433C923C3176 /* humberger.png in Resources */,
 				547561071C1D452EB2FDE134 /* saladfile.png in Resources */,
 				DC46F5D3228C41CF9942CC6D /* salade.jpg in Resources */,
+				59FD3F931D1B41FDA17B832B /* Ionicons.ttf in Resources */,
+				7A9F82F761824C999D299AA5 /* amazonpay.png in Resources */,
+				920137035CAC48788E48A894 /* applepay.png in Resources */,
+				32B1E09698F04FAE87B675CD /* gpay.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

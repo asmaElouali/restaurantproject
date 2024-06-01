@@ -1,4 +1,4 @@
-import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { useStore } from "../redux/store";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
@@ -9,7 +9,13 @@ import HeaderBar from "../components/HeaderBar";
 import EmptyListAnimation from "../components/EmptyListAnimation";
 import OrderItemCard from "../components/OrderItemCard";
 import OrderHistoryCard from "../components/OrderHistoryCard";
+import ModalScreen from "../components/ModalComponent";
+import Ionicons from "react-native-vector-icons/Ionicons";
+const { width, height } = Dimensions.get("window");
+import { useNavigation } from '@react-navigation/native';
 
+
+const dialPadSize = width * 0.2;
 const OrderHistoryScreen = ({ navigation }: any) => {
     const OrderHistoryList = useStore((state: any) => state.OrderHistoryList);
     const tabBarHeight = useBottomTabBarHeight();
@@ -27,7 +33,7 @@ const OrderHistoryScreen = ({ navigation }: any) => {
             setShowAnimation(false);
         }, 2000);
     };
-
+    const navigations = useNavigation(); 
     return (
         <View style={styles.ScreenContainer}>
             <StatusBar backgroundColor={COLORS.primaryBlackHex} />
@@ -40,7 +46,16 @@ const OrderHistoryScreen = ({ navigation }: any) => {
                 <View style={[styles.ScrollViewInnerView, { marginBottom: tabBarHeight }]}>
                     <View style={styles.ItemContainer}>
                         <HeaderBar title="Order History" />
-
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <ModalScreen />
+                            <TouchableOpacity  style={{ marginLeft: 160 }} onPress={() =>navigation.push('qr-code')} >
+                                <Ionicons
+                                    name="qr-code-outline"
+                                    size={dialPadSize / 2}
+                                    color={COLORS.primaryOrangeHex}
+                                />
+                            </TouchableOpacity>
+                        </View>
                         {OrderHistoryList.length == 0 ? (
                             <EmptyListAnimation title={'No Order History'} />
                         ) : (

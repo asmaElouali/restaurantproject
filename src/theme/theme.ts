@@ -1,3 +1,5 @@
+import { ColorValue } from "react-native";
+
 interface Color {
     primary: ColorValue | undefined;
     primaryRedHex: string;
@@ -26,6 +28,7 @@ export const COLORS: Color = {
     primaryWhiteHex: '#FFFFFF',
     primaryBlackRGBA: 'rgba(12,15,20,0.5)',
     secondaryBlackRGBA: 'rgba(0,0,0,0.7)',
+    primary: undefined
 };
 
 interface Spacing {
