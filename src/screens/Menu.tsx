@@ -269,7 +269,6 @@ const Menu = ({ navigation }: any) => {
                         </View>
                     ))}
                 </ScrollView>
-
                 {/*SubCategory Flatlist*/}
                 <FlatList
                     ref={ListRef}
@@ -302,6 +301,7 @@ const Menu = ({ navigation }: any) => {
                         )
                     }}
                 />
+                <ScrollView showsVerticalScrollIndicator = {true}  contentContainerStyle={styles.CategoryScrollViewStyle}>
 
                 <Text style={styles.ItemTitle}>Menu Item</Text>
                 {/*Article Flatlist*/}
@@ -335,6 +335,7 @@ const Menu = ({ navigation }: any) => {
                         )
                     }}
                 />
+                </ScrollView>
             </ScrollView>
         </View>
 

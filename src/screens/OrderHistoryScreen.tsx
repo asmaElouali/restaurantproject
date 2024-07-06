@@ -21,11 +21,11 @@ const OrderHistoryScreen = ({ navigation }: any) => {
     const tabBarHeight = useBottomTabBarHeight();
     const [showAnimation, setShowAnimation] = useState(false);
 
-    const navigationHandler = ({ index }: any) => {
+    /*const navigationHandler = ({ index }: any) => {
         navigation.push('Details', {
             index,
         });
-    };
+    };*/
 
     const buttonPressHandler = () => {
         setShowAnimation(true);
@@ -61,11 +61,12 @@ const OrderHistoryScreen = ({ navigation }: any) => {
                         ) : (
                             <View style={styles.ListItemContainer}>
                                 {OrderHistoryList.map((data: any, index: any) => (
-                                    <OrderHistoryCard key={index.toString()} navigationHandler={navigationHandler} CartList={data.CartList} CartListPrice={data.CartListPrice} OrderDate={data.OrderDate} />
+                                    <OrderHistoryCard key={index.toString()}  CartList={data.CartList} CartListPrice={data.CartListPrice} OrderDate={data.OrderDate} />
                                 ))}
                             </View>
                         )}
                     </View>
+                    {/*
                     {OrderHistoryList.length > 0 ? (
                         <TouchableOpacity
                             style={styles.DownloadButton}
@@ -76,7 +77,7 @@ const OrderHistoryScreen = ({ navigation }: any) => {
                         </TouchableOpacity>
                     ) : (
                         <></>
-                    )}
+                    )}*/}
                 </View>
             </ScrollView>
 

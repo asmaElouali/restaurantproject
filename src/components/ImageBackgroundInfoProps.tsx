@@ -53,6 +53,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                                 size={FONTSIZE.size_16}
                             />
                         </TouchableOpacity>
+                        {/*
                         <TouchableOpacity
                             onPress={() => {
                                 ToggleFavourite(favourite, type, index);
@@ -65,9 +66,11 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                                 size={FONTSIZE.size_16}
                             />
                         </TouchableOpacity>
+                       */}
                     </View>
                 ) : (
                     <View style={styles.ImageHeaderBarContainerWithoutBack}>
+                        {/*
                         <TouchableOpacity
                             onPress={() => {
                                 ToggleFavourite(favourite, type, index);
@@ -80,7 +83,8 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                                 size={FONTSIZE.size_16}
                             />
                         </TouchableOpacity>
-                    </View>
+                       */}
+                    </View>       
                 )}
 
                 <View style={styles.ImageInfoOuterContainer}>
@@ -89,6 +93,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                             <View>
                                 <Text style={styles.ItemTitleText}>{name}</Text>
                             </View>
+                            {/*
                             <View style={styles.ItemPropertiesContainer}>
                                 <View style={styles.ProperFirst}>
                                     <Text
@@ -103,6 +108,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                                     </Text>
                                 </View>
                             </View>
+                            */}
                         </View>
                     </View>
                     <View style={styles.InfoContainerRow}>
@@ -113,7 +119,6 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                 </View>
             </ImageBackground>
         </View>
-
 
     )
 

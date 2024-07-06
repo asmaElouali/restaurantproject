@@ -3,13 +3,13 @@ import React from "react";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from '../theme/theme';
 import OrderItemCard from "./OrderItemCard";
 interface OrderHistoryCardProps {
-    navigationHandler: any;
+   // navigationHandler: any;
     CartList: any;
     CartListPrice: string;
     OrderDate: string;
 }
 const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
-    navigationHandler,
+//navigationHandler,
     CartList,
     CartListPrice,
     OrderDate,
@@ -29,7 +29,7 @@ const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
             <View style={styles.ListContainer}>
                 {CartList.map((data: any, index: any) => (
                     <TouchableOpacity key={index.toString()} onPress={() => {
-                        navigationHandler({ index: data.index });
+                       // navigationHandler({ index: data.index });
                     }}>
                         <OrderItemCard name={data.name} image={data.image} prices={data.prices} ItemPrice={data.ItemPrice} />
                     </TouchableOpacity>
