@@ -6,6 +6,14 @@
       "sha1": "18e5fe2f93c853bbb495975f04df56438d595de5"
     },
     {
+      "path": "src/assets/fonts/Feather.ttf",
+      "sha1": "e6604258b1ced5efd51360875d782fca65381d47"
+    },
+    {
+      "path": "src/assets/fonts/FontAwesome.ttf",
+      "sha1": "13b1eab65a983c7a73bc7997c479d66943f7c6cb"
+    },
+    {
       "path": "src/assets/fonts/Ionicons.ttf",
       "sha1": "86e07c3d974eb09099e6e5a9b3b8310303cf0feb"
     },
@@ -32,6 +40,14 @@
     {
       "path": "src/assets/images/salade/saladfile.png",
       "sha1": "f701b92eb6f2c55a4a7a4d296a69dd15ebc654db"
+    },
+    {
+      "path": "src/assets/images/scanner/flashlight_on.png",
+      "sha1": "1c1910e713779d91d36498fc11aba6bebee61381"
+    },
+    {
+      "path": "src/assets/images/scanner/torch_off.png",
+      "sha1": "95f15e4cebbde6166f091f3d5c3a7a1710e63b07"
     }
   ]
 }

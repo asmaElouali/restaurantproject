@@ -41,25 +41,6 @@ const getSubCategoryFromData = (data: any) => {
     return subcategories;
 }
 
-/*const getSubCategoryList = (category: string, data: any) => {
-    if (category == 'All') {
-        let list: any = [];
-        let sub: any = {};
-        for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < data[i].subcategories.length; j++) {
-                sub = data[i].subcategories[j];
-                // console.log(sub); 
-                list.push(sub);
-            }
-            console.log("subcategorie", list[i]);
-        }
-        return list;
-    } else {
-        let subcategorylist = data.filter((item: any) => item.name == category);
-        console.log({ sss: subcategorylist[0].subcategories[0] });
-        return subcategorylist[0].subcategories;
-    }
-};*/
 
 const getSubCategoryList = (category: string, data: any) => {
     if (category === 'All') {
@@ -108,33 +89,6 @@ const getItems = (subcategorie: string, data: any) => {
         }
     }
 }
-/*const getItems = (categorie: string, subcategorie: string, data: any) => {
-    let list: any = [];
-
-    // Si aucune sous-catégorie spécifiée, renvoyer tous les items
-    if (subcategorie === '') {
-        for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < data[i].subcategories.length; j++) {
-                list = list.concat(data[i].subcategories[j].items);
-            }
-        }
-    } else {
-        // Rechercher les items dans la catégorie et sous-catégorie spécifiée
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].name === categorie) {
-                let subcategorylist = data[i].subcategories.filter((item: any) => item.name === subcategorie);
-                if (subcategorylist.length > 0) {
-                    list = subcategorylist[0].items;
-                    break;
-                }
-            }
-        }
-    }
-
-    return list;
-}*/
-
-
 
 const Menu = ({ navigation }: any) => {
     // const MenuList = useStore((state: any) => state.DataList);

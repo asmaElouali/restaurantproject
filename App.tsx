@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useCallback, useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import { global_styles } from './src/style/globalstyle';
 //import DinningTable from "./screens/DinningTable";
@@ -24,6 +24,9 @@ import HeaderBar from "./src/components/HeaderBar";
 //import { RNCamera } from "react-native-camera";
 import Scanner from "./src/screens/Scanner";
 
+
+import { ThemeContext } from './src/context/AuthContext';
+import * as Keychain from 'react-native-keychain';
 
 
 /*const Stack = createNativeStackNavigator();
@@ -55,10 +58,47 @@ export default class App extends Component {
   }
 }*/
 /*const App = () => {
-  // console.log("Globale data", MenuData[0].subcategories[0].items);
-  return (
-    <Scanner/>
-  );
+  const authContext = useContext(ThemeContext);
+  const [status, setStatus] = useState('loading');
+
+  const loadJWT = useCallback(async () => {
+    try {
+      const value = await Keychain.getGenericPassword();
+
+      if (value) {
+        const jwt = JSON.parse(value.password);
+        authContext?.setAuthState({
+          accessToken: jwt.accessToken || null,
+          refreshToken: jwt.refreshToken || null,
+          authenticated: jwt.accessToken !== null,
+        });
+        setStatus('success');
+        // Continue with your code using jwt
+      } else {
+        // Handle the case where no password was found
+        console.error("No password found");
+        // You can also set a default value for jwt or handle this scenario as needed
+      }
+    } catch (error) {
+      setStatus('error');
+      console.log('Keychain Error: ${error.message}');
+      authContext?.setAuthState({
+        accessToken: null,
+        refreshToken: null,
+        authenticated: false,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    loadJWT();
+  }, [loadJWT]);
+
+  if (authContext?.authState?.authenticated == false) {
+    return <SignInScreen />
+  } else {
+    return <Passcode />
+  }
 };
 
 export default App;*/
