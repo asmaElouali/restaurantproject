@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { COLORS } from "../theme/theme";
 import { Authorization, Authentication, Token, GetMenu, GetFamilyGroup, GetMenuItemByFamily, TenderMedia } from "../api/authservice";
 const { width, height } = Dimensions.get("window");
+import { authorize, authenticate, getToken } from '../redux/authSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../redux/stores";
 
 const dialPad = [1, 2, 3, 4, 5, 6, 7, 8, 9, "checkmark", 0, "del"];
 const dialPadSize = width * 0.2;
@@ -11,74 +14,109 @@ const pinLength = 6;
 
 const Passcode = ({ navigation }: any) => {
 
-    const getAutorize = async () => {
-        await Authorization().then(res => {
-            console.log("resultat", res.data);
-        })
-            .catch(error => {
-                console.log('ERRRrr', error);
-            })
-    }
-    const getSignIn = async () => {
-        await Authentication().then(res => {
-            console.log("signIn", res.data);
-        })
-            .catch(error => {
-                console.log('Error', error);
-            })
-    }
-    const getToken = async () => {
-        await Token().then(res => {
-            console.log("Token", res.data);
-        })
-            .catch(error => {
-                console.log('Error', error);
-            })
-    }
-    const getMenu = async () => {
-        await GetMenu().then(res => {
-            console.log("Menu", res.data);
-        })
-            .catch(error => {
-                console.log('Error', error);
-            })
-    }
-    const getFamily = async () => {
-        await GetFamilyGroup().then(res => {
-            console.log("Family Group", res.data);
-        })
-            .catch(error => {
-                console.log('Error', error);
-            })
-    }
+    /* const getAutorize = async () => {
+         await Authorization().then(res => {
+             console.log("resultat", res.data);
+         })
+             .catch(error => {
+                 console.log('ERRRrr', error);
+             })
+     }
+     const getSignIn = async () => {
+         await Authentication().then(res => {
+             console.log("signIn", res.data);
+         })
+             .catch(error => {
+                 console.log('Error', error);
+             })
+     }
+     const getToken = async () => {
+         await Token().then(res => {
+             console.log("Token", res.data);
+         })
+             .catch(error => {
+                 console.log('Error', error);
+             })
+     }
+     const getMenu = async () => {
+         await GetMenu().then(res => {
+             console.log("Menu", res.data);
+         })
+             .catch(error => {
+                 console.log('Error', error);
+             })
+     }
+     const getFamily = async () => {
+         await GetFamilyGroup().then(res => {
+             console.log("Family Group", res.data);
+         })
+             .catch(error => {
+                 console.log('Error', error);
+             })
+     }
+ 
+     const getMenuItems = async () => {
+         await GetMenuItemByFamily(11101).then(res => {
+             const names = res.data.map((item: any[]) =>
+                 item.map(definition => definition.name)
+             );
+             console.log("Menu Item Family Group", names);
+         })
+             .catch(error => {
+                 console.log('Error', error);
+             })
+     }
+     const getTender = async () => {
+         await TenderMedia().then(res => {
+             console.log("Tender Media", res.data);
+         })
+             .catch(error => {
+                 console.log('Error', error);
+             })
+     }
+ 
+ 
+     useEffect(() => {
+        // getAutorize()
+         //getSignIn()
+        // getToken()
+        // getTender()
+        getMenu()
+     }, []);*/
 
-    const getMenuItems = async () => {
-        await GetMenuItemByFamily(11101).then(res => {
-            const names = res.data.map((item: any[]) =>
-                item.map(definition => definition.name)
-            );
-            console.log("Menu Item Family Group", names);
-        })
-            .catch(error => {
-                console.log('Error', error);
-            })
-    }
-    const getTender = async () => {
-        await TenderMedia().then(res => {
-            console.log("Tender Media", res.data);
-        })
-            .catch(error => {
-                console.log('Error', error);
-            })
-    }
-    
+    const dispatch = useDispatch<AppDispatch>();
+    const token = useSelector((state: any) => state.auth.token);
+    const code = useSelector((state: any)=> state.auth.code)
+    const status = useSelector((state: any) => state.auth.status);
+    const error = useSelector((state: any) => state.auth.error);
+
+   useEffect(() => {
+        const performAuthActions = async () => {
+            try {
+                // Dispatch authorize and wait for completion
+                await dispatch(authorize());
+                // Dispatch authenticate and wait for completion
+                await dispatch(authenticate());
+                // Dispatch getToken and wait for completion
+                await dispatch(getToken());
+                //console.log("Token",token)
+            } catch (error) {
+                // Handle any errors that occur
+                console.error('An error occurred:', error);
+            }
+        };
+
+        performAuthActions();
+    }, [dispatch]);
 
     useEffect(() => {
-        getAutorize()
-        //getSignIn(),
-        //getToken(),
-        //getTender()
-    }, []);
+        if (token) {
+            console.log('Token:', token);
+            console.log('code:', code);
+        }else{
+            console.log('No Token Found')
+        }
+    }, [token,code]);
 
     const [pinCode, setPinCode] = useState<number[]>([]);
 
@@ -129,7 +167,6 @@ const Passcode = ({ navigation }: any) => {
                     }} />
                 ))}
             </View>
-
             <DialPad onPress={(item: any) => {
                 if (item === "del") {
                     setPinCode((prevCode) => prevCode.slice(0, prevCode.length - 1));
@@ -140,7 +177,7 @@ const Passcode = ({ navigation }: any) => {
                 }
             }} />
         </View>
-    )
+        
 
-}
+)}
 export default Passcode;

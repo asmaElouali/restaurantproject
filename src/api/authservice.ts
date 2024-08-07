@@ -1,10 +1,10 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 ///////////////////////////////Auhorization function//////////////////////////////////////////////////
 
 export const Authorization = async () => {
      try {
-          const res = await axios.get(`http://192.168.100.57:3333/autorize`);
+          const res = await axios.get(`http://192.168.1.135:3333/autorize`);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -23,7 +23,7 @@ export const Authorization = async () => {
 
 export const Authentication = async () => {
      try {
-          const res = await axios.post(`http://192.168.100.57:3333/signin`);
+          const res = await axios.post(`http://192.168.1.135:3333/signin`);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -42,7 +42,7 @@ export const Authentication = async () => {
 
 export const Token = async () => {
      try {
-          const res = await axios.post(`http://192.168.100.57:3333/token`);
+          const res = await axios.post(`http://192.168.1.135:3333/token`);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -68,7 +68,7 @@ export const GetMenu = async () => {
                     'Simphony-RvcRef': 11
                }
           };
-          const res = await axios.get(`http://192.168.100.57:3333/Menu`,config);
+          const res = await axios.get(`http://192.168.1.135:3333/Menu`,config);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -94,7 +94,7 @@ export const GetFamilyGroup = async () => {
                     'Simphony-RvcRef': 11
                }
           };
-          const res = await axios.get(`http://192.168.100.57:3333/family_group`,config);
+          const res = await axios.get(`http://192.168.1.135:3333/family_group`,config);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -120,7 +120,7 @@ export const GetMenuItemByFamily= async (familyGroupRef:Number) => {
                     'Simphony-RvcRef': 11
                }
           };
-          const res = await axios.get(`http://192.168.100.57:3333/menuItems/${familyGroupRef}`,config);
+          const res = await axios.get(`http://192.168.1.135:3333/menuItems/${familyGroupRef}`,config);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {
@@ -139,7 +139,7 @@ export const GetMenuItemByFamily= async (familyGroupRef:Number) => {
 
 export const TenderMedia = async () => {
      try {
-          const res = await axios.get(`http://192.168.100.57:3333/tender`);
+          const res = await axios.get(`http://192.168.1.135:3333/tender`);
           return res;
      } catch (error) {
           if (axios.isAxiosError(error)) {

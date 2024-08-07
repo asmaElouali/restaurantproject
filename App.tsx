@@ -6,7 +6,7 @@ import { global_styles } from './src/style/globalstyle';
 //import AppNavigator from "./navigator/app.navigator";
 import Menu from "./src/screens/Menu";
 import SplashScreen from 'react-native-splash-screen';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //import TabNavigator from "./src/navigator/TabNavigator";
 import DetailsScreen from './src/screens/DetailsScreen';
@@ -23,10 +23,19 @@ import HeaderBar from "./src/components/HeaderBar";
 //import QRCodeScanner from "react-native-qrcode-scanner";
 //import { RNCamera } from "react-native-camera";
 import Scanner from "./src/screens/Scanner";
-
+import Welcome from "./src/screens/WelcomeScreen";
 
 import { ThemeContext } from './src/context/AuthContext';
 import * as Keychain from 'react-native-keychain';
+import { Provider } from "react-redux";
+import { RootStackParamList } from "./../restaurantproject/types";
+import LoginScreen from "./src/screens/LoginScreen";
+import { COLORS } from "./src/theme/theme";
+//import stores, { persistor } from "./src/redux/stores";
+// { PersistGate } from "redux-persist/integration/react";
+import Toast from 'react-native-toast-message';
+import RestaurantScreen from "./src/screens/RestaurantScreen";
+
 
 
 /*const Stack = createNativeStackNavigator();
@@ -102,20 +111,31 @@ export default class App extends Component {
 };
 
 export default App;*/
-const Stack = createNativeStackNavigator();
-
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: COLORS.primaryBlackHex,
+  },
+};
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
   return (
-    <NavigationContainer>
+
+
+    <NavigationContainer theme={theme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+
         <Stack.Screen
-          name="passcode"
-          component={Passcode}
+          name="Welcome"
+          component={Welcome}
           options={{ animation: 'slide_from_bottom' }} >
         </Stack.Screen>
+        <Stack.Screen name="Login" component={LoginScreen}  />
+        <Stack.Screen name="Restaurant" component={RestaurantScreen}/>
         <Stack.Screen
           name="rvc"
           component={RvcScreen}
@@ -147,7 +167,10 @@ const App = () => {
           options={{ animation: 'slide_from_bottom' }}>
         </Stack.Screen>
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
+
+
   );
 };
 
