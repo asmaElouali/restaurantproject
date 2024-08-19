@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,8 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
+  Linking,
+  Alert,
 } from 'react-native';
 import {
   BorderRadius,
@@ -19,8 +21,12 @@ import PaymentMethod from '../components/PaymentMethod';
 import PaymentFooter from '../components/PaymentFooter';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomIcon from '../components/CustomIcon';
-import {useStore} from '../redux/store';
+import { useStore } from '../redux/store';
 import PopUpAnimation from '../components/PopUpAnimation';
+import { RootStackParamList } from '../../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import axios from 'axios';
+import { useStripe} from '@stripe/stripe-react-native';
 
 const PaymentList = [
   {
@@ -45,26 +51,101 @@ const PaymentList = [
   },
 ];
 
-const PaymentScreen = ({navigation, route}: any) => {
+
+type Props = NativeStackScreenProps<RootStackParamList, "Payment">;
+
+const PaymentScreen: React.FC<Props> = ({ navigation, route }: any) => {
   const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
   const addToOrderHistoryListFromCart = useStore(
     (state: any) => state.addToOrderHistoryListFromCart,
   );
-
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const { amount, rvcId, table }: any = route.params
   const [paymentMode, setPaymentMode] = useState('Credit Card');
   const [showAnimation, setShowAnimation] = useState(false);
+  
+
+  const handleOrder = async () => {
+    try {
+      const orderDto = { rvcId: rvcId }; // Adjust according to your needs
+      const response = await axios.post(`http://192.168.1.135:8080/api/order/${table}`, orderDto);
+      console.log("Order created", response.data);
+      console.log("Order created", response.data.payment_url);
+      /* if (response.data.payment_url) {
+           // window.location.href=response.data.payment_url;
+           Linking.openURL(response.data.payment_url);
+       }
+      //  navigate("Order",{tableId:table})
+      const { paymentIntentClientSecret } = response.data;
+
+      if (paymentIntentClientSecret) {
+        // Initialize the PaymentSheet with the client secret
+        await initPaymentSheet({
+          paymentIntentClientSecret,
+        });
+      
+        // Present the PaymentSheet
+        const { error } = await presentPaymentSheet();
+        if (error) {
+          console.error("Payment failed", error);
+        } else {
+          // Navigate to OrderHistory on successful payment
+         
+          navigation.navigate("Order",{tableId:table})
+        }
+      }*/
+      const paymentUrl = response.data.payment_url;
+      const clientSecret = paymentUrl.split('_secret_')[1] ? `pi_${paymentUrl.split('_secret_')[0].split('pi_')[1]}_secret_${paymentUrl.split('_secret_')[1]}` : null;
+
+      if (clientSecret) {
+        // Initialize the PaymentSheet with the extracted client secret
+
+        await initPaymentSheet({
+          paymentIntentClientSecret: clientSecret,
+          merchantDisplayName: "Your Merchant Name",
+          googlePay: {
+            // Provide the necessary Google Pay configuration
+            currencyCode: 'USD',
+            merchantCountryCode: 'US',
+            testEnv:true,
+            
+          },
+        });
+        // Present the PaymentSheet
+        const { error } = await presentPaymentSheet();
+        if (error) {
+          console.error("Payment failed", error);
+          Alert.alert("Payment failed", error.message)
+        } else {
+          setShowAnimation(true);
+          setTimeout(async () => {
+            setShowAnimation(false);
+            //navigation.navigate('Order', { tableId: table });
+            // Clear cart after successful payment
+            await axios.put(`http://192.168.1.135:8080/api/cart/clear/${table}`);
+            // Navigate to OrderHistory on successful payment
+            navigation.navigate("Order", { tableId: table });
+          }, 2000);
+
+        }
+      }
+
+    } catch (error) {
+      console.error("Error creating order", error);
+    }
+  };
 
   const buttonPressHandler = () => {
-    setShowAnimation(true);
-    addToOrderHistoryListFromCart();
-    calculateCartPrice();
-    setTimeout(() => {
-      setShowAnimation(false);
-      navigation.navigate('History');
-    }, 2000);
+    // setShowAnimation(true);
+    handleOrder();
+    // calculateCartPrice();
+    /* setTimeout(() => {
+       setShowAnimation(false);
+       //navigation.navigate('Order', { tableId: table });
+     }, 2000);*/
   };
- console.log("color 1", COLORS.primaryGreyHex);
- console.log("color 2",COLORS.primaryBlackHex);
+  console.log("color 1", COLORS.primaryGreyHex);
+  console.log("color 2", COLORS.primaryBlackHex);
   return (
     <View style={styles.ScreenContainer}>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
@@ -114,8 +195,8 @@ const PaymentScreen = ({navigation, route}: any) => {
               <Text style={styles.CreditCardTitle}>Credit Card</Text>
               <View style={styles.CreditCardBG}>
                 <LinearGradient
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 1}}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
                   style={styles.LinearGradientStyle}
                   colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}>
                   <View style={styles.CreditCardRow}>
@@ -142,7 +223,7 @@ const PaymentScreen = ({navigation, route}: any) => {
                         Card Holder Name
                       </Text>
                       <Text style={styles.CreditCardNameTitle}>
-                        Robert Evans
+                        Restaurant client
                       </Text>
                     </View>
                     <View style={styles.CreditCardDateContainer}>
@@ -156,7 +237,7 @@ const PaymentScreen = ({navigation, route}: any) => {
               </View>
             </View>
           </TouchableOpacity>
-          {PaymentList.map((data: any) => (
+          {/*PaymentList.map((data: any) => (
             <TouchableOpacity
               key={data.name}
               onPress={() => {
@@ -169,14 +250,14 @@ const PaymentScreen = ({navigation, route}: any) => {
                 isIcon={data.isIcon}
               />
             </TouchableOpacity>
-          ))}
+          ))*/}
         </View>
       </ScrollView>
 
       <PaymentFooter
-              buttonTitle={`Pay with ${paymentMode}`}
-              price={route.params.amount}
-              buttonPressHandler={buttonPressHandler}      />
+        buttonTitle={`Pay with ${paymentMode}`}
+        price={amount}
+        buttonPressHandler={buttonPressHandler} />
     </View>
   );
 };

@@ -17,6 +17,7 @@ import { RootStackParamList } from "../../../restaurantproject/types";
 type Props = NativeStackScreenProps<RootStackParamList, "Welcome">
 
 const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+    
     return (
         <SafeAreaView>
             <View>

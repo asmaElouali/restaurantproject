@@ -1,18 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { BackHandler, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from '../theme/theme';
 import GradientBGIconProps from './GradientBGIcon';
+import ProfilePic from './ProfilePic';
+import { Screen } from 'react-native-screens';
 
 
 interface HeaderBarProps {
     title?: string;
+    name: string;
+    BackHandler?: any;
+    Screen?: any;
 }
 
-const HeaderBar: React.FC<HeaderBarProps> = ({ title }) => {
+const HeaderBar: React.FC<HeaderBarProps> = ({ title, name ,BackHandler,Screen}) => {
     return (
         <View style={styles.HeaderContainer}>
-            <GradientBGIconProps name="menu" color={COLORS.primaryLightGreyHex} size={FONTSIZE.size_16} />
+            <TouchableOpacity onPress={()=> BackHandler(name)}>
+                <GradientBGIconProps name={name} color={COLORS.primaryLightGreyHex} size={FONTSIZE.size_16} />
+            </TouchableOpacity>
             <Text style={styles.HeaderText}>{title}</Text>
+            {Screen}
         </View>
     )
 }

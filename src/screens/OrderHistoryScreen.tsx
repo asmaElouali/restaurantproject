@@ -1,7 +1,7 @@
 import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "../redux/store";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+//import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { BorderRadius, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import PopUpAnimation from "../components/PopUpAnimation";
 import { Header } from "react-native/Libraries/NewAppScreen";
@@ -13,14 +13,31 @@ import ModalScreen from "../components/ModalComponent";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const { width, height } = Dimensions.get("window");
 import { useNavigation } from '@react-navigation/native';
+import axios from "axios";
+import { RootStackParamList } from "../../types";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+type Props = NativeStackScreenProps<RootStackParamList, "Order">;
 
 const dialPadSize = width * 0.2;
-const OrderHistoryScreen = ({ navigation }: any) => {
-    const OrderHistoryList = useStore((state: any) => state.OrderHistoryList);
-    const tabBarHeight = useBottomTabBarHeight();
+const OrderHistoryScreen: React.FC<Props> = ({ navigation, route }: any) => {
+    const { tableId }: any = route.params;
+    const [orderHistory, setOrderHistory] = useState([]);
+    //const tabBarHeight = useBottomTabBarHeight();
     const [showAnimation, setShowAnimation] = useState(false);
 
+    const fetchOrderHistory = async () => {
+        try {
+            const response = await axios.get(`http://192.168.1.135:8080/api/order/dinning/${tableId}`);
+            setOrderHistory(response.data);
+        } catch (error) {
+            console.error("Error fetching order history:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchOrderHistory();
+    }, [tableId]);
     /*const navigationHandler = ({ index }: any) => {
         navigation.push('Details', {
             index,
@@ -33,51 +50,27 @@ const OrderHistoryScreen = ({ navigation }: any) => {
             setShowAnimation(false);
         }, 2000);
     };
-    const navigations = useNavigation(); 
+    //const navigations = useNavigation(); 
+    const BackHandler = () => {
+        navigation.pop()
+    };
     return (
         <View style={styles.ScreenContainer}>
             <StatusBar backgroundColor={COLORS.primaryBlackHex} />
-            {showAnimation ? (
-                <PopUpAnimation style={styles.LottieAnimation} source={require('../lottie/download.json')} />
-            ) : (
-                <></>
-            )}
+            <HeaderBar title="Order History" name="left" BackHandler={BackHandler}/>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.ScrollViewFlex}>
-                <View style={[styles.ScrollViewInnerView, { marginBottom: tabBarHeight }]}>
+                <View style={styles.ScrollViewInnerView}>
                     <View style={styles.ItemContainer}>
-                        <HeaderBar title="Order History" />
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <ModalScreen />
-                            <TouchableOpacity  style={{ marginLeft: 160 }} onPress={() =>navigation.push('qr-code')} >
-                                <Ionicons
-                                    name="qr-code-outline"
-                                    size={dialPadSize / 2}
-                                    color={COLORS.primaryOrangeHex}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        {OrderHistoryList.length == 0 ? (
+                        {orderHistory.length == 0 ? (
                             <EmptyListAnimation title={'No Order History'} />
                         ) : (
                             <View style={styles.ListItemContainer}>
-                                {OrderHistoryList.map((data: any, index: any) => (
-                                    <OrderHistoryCard key={index.toString()}  CartList={data.CartList} CartListPrice={data.CartListPrice} OrderDate={data.OrderDate} />
+                                {orderHistory.map((data: any, index: any) => (
+                                    <OrderHistoryCard key={index.toString()} CartList={data.orderItems} CartListPrice={data.totalPrice} OrderDate={data.createdAt} status={data.orderStatus} />
                                 ))}
                             </View>
                         )}
                     </View>
-                    {/*
-                    {OrderHistoryList.length > 0 ? (
-                        <TouchableOpacity
-                            style={styles.DownloadButton}
-                            onPress={() => {
-                                buttonPressHandler();
-                            }}>
-                            <Text style={styles.ButtonText}>Download</Text>
-                        </TouchableOpacity>
-                    ) : (
-                        <></>
-                    )}*/}
                 </View>
             </ScrollView>
 
@@ -90,6 +83,7 @@ const styles = StyleSheet.create({
     ScreenContainer: {
         flex: 1,
         backgroundColor: COLORS.primaryBlackHex,
+        paddingBottom:20,
     },
     LottieAnimation: {
         height: 250,

@@ -1,11 +1,11 @@
 import React from "react";
 import {
-    ImageProps,
     StyleSheet,
     Text,
     View,
     ImageBackground,
     TouchableOpacity,
+    ImageSourcePropType,
 } from "react-native";
 
 import GradientBGIconProps from "./GradientBGIcon";
@@ -15,26 +15,18 @@ import GradientBGIcon from "./GradientBGIcon";
 
 interface ImageBackgroundInfoProps {
     EnableBackHandler: boolean;
-    image: ImageProps;
+    image: ImageSourcePropType;
     name: string;
-    type: string;
-    index: number;
-    price: number;
-    favourite: boolean;
+    price: any;
     BackHandler?: any;
-    ToggleFavourite: any
 }
 
 const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
     EnableBackHandler,
     image,
     name,
-    type,
-    index,
     price,
-    favourite,
     BackHandler,
-    ToggleFavourite,
 }) => {
     return (
         <View>
@@ -113,7 +105,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                     </View>
                     <View style={styles.InfoContainerRow}>
                         <View style={styles.RatingContainer}>
-                            <Text style={styles.RatingText}>{price}</Text>
+                            <Text style={styles.RatingText}>price : {price} $</Text>
                         </View>
                     </View>
                 </View>
@@ -126,8 +118,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
 const styles = StyleSheet.create({
     ImageBackgroundImage: {
         width: '100%',
-        //height:700,
-        aspectRatio: 15 / 25,
+        aspectRatio: 20 / 25,
         justifyContent: 'space-between',
     },
     ImageHeaderBarContainerWithBack: {

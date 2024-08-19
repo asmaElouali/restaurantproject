@@ -1,72 +1,54 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, StatusBar, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, ScrollView, TouchableWithoutFeedback, Alert } from 'react-native';
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from '../theme/theme';
 import ImageBackgroundInfo from '../components/ImageBackgroundInfoProps';
 import { useStore } from '../redux/store';
 import MenuData from '../data/MenuData';
 import PaymentFooter from '../components/PaymentFooter';
-const DetailsScreen = ({ navigation, route }: any) => {
-    console.log('route = ', route.params)
-    const ItemOfIndex = route.params;
-    const addToCart = useStore((state: any) => state.addToCart);
-    const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
-    const [price, setPrice] = useState(ItemOfIndex.price);
-    const addToFavoriteList = useStore((state: any) => state.addToFavoriteList);
-    const  deleteFromFavoriteList = useStore((state:any)=> state.deleteFromFavoriteList)
+import { RootStackParamList } from '../../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import axios from 'axios';
 
-    const ToggleFavourite = (favourite: boolean,index: number) => {
-        favourite ?  deleteFromFavoriteList(index) : addToFavoriteList(index);
-    };
 
-    // const ItemMenu = MenuData;
-    // const ItemOfIndex = route.params
-    // const [price, setPrice] = useState(ItemOfIndex.);
-    /*const MenuItem = ItemMenu.find((category:any) => {
-        const subcategory = category.subcategories.find((sub:any) => {
-            return sub.items && sub.items.length > route.params.index;
-        });
-        return subcategory != undefined;
-    });
+type Props = NativeStackScreenProps<RootStackParamList, "Details">;
 
-    const ItemOfIndex = MenuItem?.subcategories?.find((sub:any) => {
-        return sub.items && sub.items.length > route.params.index;
-    })?.items[route.params.index];*/
+const DetailsScreen: React.FC<Props> = ({ route , navigation: { navigate,pop }}) => {
 
-    console.log('resultat =', ItemOfIndex);
+    const { id, name, description, image, price, table,rvc }: any = route.params;
     const [fullDesc, setFullDesc] = useState(false);
+
     const BackHandler = () => {
-        navigation.pop();
+       // navigate("Cart",{table:table,rvcid:rvc});
+      // navigate("Order",{tableId:table});
+       pop()
     };
 
-    const addToCarthandler = ({
-        index,
-        name,
-        image,
-        price,
-    }: any) => {
-        addToCart({
-            index,
-            name,
-            image,
-            prices: [{ price, quantity: 1 }],
-        });
-        calculateCartPrice();
-        navigation.navigate('Cart', {
-            image: image,
-            index: index,
-            name: name,
-            price: price,
-        });
+    const addToCart = async () => {
+        try {
+            const response = await axios.put(`http://192.168.1.135:8080/api/cart/add/${table}`, {
+                id: id,
+                quantity: 1, // Adjust as needed
+            });
+           
+            navigate("Cart",{table:table,rvcid:rvc})
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Error', 'Failed to add item to cart');
+        }
     };
+
+
+    
     return (
-
         <View style={styles.ScreenContainer}>
             <StatusBar backgroundColor={COLORS.primaryBlackHex} />
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.ScrollViewFlex}
-            >
-                <ImageBackgroundInfo EnableBackHandler={true} image={ItemOfIndex.image} name={ItemOfIndex.name} price={ItemOfIndex.price} type={''} index={ItemOfIndex.id} favourite={ItemOfIndex.favourite} ToggleFavourite={ToggleFavourite} BackHandler={BackHandler} />
+                contentContainerStyle={styles.ScrollViewFlex}>
+                <ImageBackgroundInfo
+                    EnableBackHandler={true} image={{ uri: image }} name={name} price={price} BackHandler={BackHandler}
+                />
+
                 <View style={styles.FooterInfoArea}>
                     <Text style={styles.InfoTitle}>Description</Text>
                     {fullDesc ? (
@@ -75,7 +57,7 @@ const DetailsScreen = ({ navigation, route }: any) => {
                                 setFullDesc(prev => !prev);
                             }}>
                             <Text style={styles.DescriptionText}>
-                                {ItemOfIndex.description}
+                                {description}
                             </Text>
                         </TouchableWithoutFeedback>
                     ) : (
@@ -84,27 +66,20 @@ const DetailsScreen = ({ navigation, route }: any) => {
                                 setFullDesc(prev => !prev);
                             }}>
                             <Text numberOfLines={3} style={styles.DescriptionText}>
-                                {ItemOfIndex.description}
+                                {description}
                             </Text>
                         </TouchableWithoutFeedback>
                     )}
                 </View>
-
-                <PaymentFooter price={ItemOfIndex.price} buttonTitle="Add to Cart" buttonPressHandler={() => {
-                    addToCarthandler({
-                        index: ItemOfIndex.index,
-                        name: ItemOfIndex.name,
-                        image: ItemOfIndex.image,
-                        price: price,
-                    });
-
-                }} />
-
+                <PaymentFooter
+                    price={price}
+                    buttonTitle="Add to Cart"
+                    buttonPressHandler={() => {
+                        addToCart()
+                    }}
+                />
             </ScrollView>
-
-        </View >
-
-
+        </View>
 
     );
 };

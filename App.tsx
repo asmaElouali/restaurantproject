@@ -4,10 +4,9 @@ import { global_styles } from './src/style/globalstyle';
 //import DinningTable from "./screens/DinningTable";
 //import Pinauthentication from "./screens/Pinauthentication";
 //import AppNavigator from "./navigator/app.navigator";
-import Menu from "./src/screens/Menu";
 import SplashScreen from 'react-native-splash-screen';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 //import TabNavigator from "./src/navigator/TabNavigator";
 import DetailsScreen from './src/screens/DetailsScreen';
 import TabNavigator from "./src/navigator/TabNavigator";
@@ -35,6 +34,15 @@ import { COLORS } from "./src/theme/theme";
 // { PersistGate } from "redux-persist/integration/react";
 import Toast from 'react-native-toast-message';
 import RestaurantScreen from "./src/screens/RestaurantScreen";
+import DinningTableScreen from "./src/screens/DinningTableScreen";
+import Menu from "./src/screens/Menu";
+import Cart from "./src/screens/CartScreen";
+import CartScreen from "./src/screens/CartScreen";
+import OrderHistoryScreen from "./src/screens/OrderHistoryScreen";
+import { StripeProvider } from '@stripe/stripe-react-native';
+import Setting from "./src/screens/Setting";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { BlurView } from "@react-native-community/blur";
 
 
 
@@ -111,6 +119,38 @@ export default class App extends Component {
 };
 
 export default App;*/
+// Create Tab Navigator
+const Tab = createBottomTabNavigator<RootStackParamList>();
+
+type Props = NativeStackScreenProps<RootStackParamList, "MainTab">;
+const MainTabNavigator: React.FC<Props> = () => {
+  return (
+    <Tab.Navigator screenOptions={{
+      tabBarHideOnKeyboard: true,
+      headerShown: false,
+      tabBarShowLabel: false,
+      tabBarBackground: () => (
+        <BlurView
+          overlayColor=""
+          blurAmount={15}
+        />
+      ),
+    }}>
+      <Tab.Screen name="Order" component={OrderHistoryScreen} options={{
+        tabBarStyle: { display: 'none' }, // Hide this tab
+      }} />
+      <Tab.Screen name="Cart" component={CartScreen} options={{
+        tabBarStyle: { display: 'none' }, // Hide this tab
+      }} />
+      <Tab.Screen name="Setting" component={Setting} options={{
+        tabBarStyle: { display: 'none' }, // Hide this tab
+      }} />
+    </Tab.Navigator>
+  );
+}
+
+
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const theme = {
   ...DefaultTheme,
@@ -124,51 +164,37 @@ const App = () => {
     SplashScreen.hide();
   }, []);
   return (
+    <StripeProvider publishableKey="pk_test_51Po0RjIcOPMbNsR4Y47qYO5p9ShpXgZk96K8Scbnj9YuqlFundVNtUReN8cX5NKIxXb8htmoSwIfDdRsNfHL0ac500OSQWcPt9">
+      <NavigationContainer theme={theme}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-
-        <Stack.Screen
-          name="Welcome"
-          component={Welcome}
-          options={{ animation: 'slide_from_bottom' }} >
-        </Stack.Screen>
-        <Stack.Screen name="Login" component={LoginScreen}  />
-        <Stack.Screen name="Restaurant" component={RestaurantScreen}/>
-        <Stack.Screen
-          name="rvc"
-          component={RvcScreen}
-          options={{ animation: 'slide_from_bottom' }} >
-        </Stack.Screen>
-        <Stack.Screen
-          name="history"
-          component={OrderHistory}
-          options={{ animation: 'slide_from_bottom' }} >
-        </Stack.Screen>
-        <Stack.Screen
-          name="Tab"
-          component={TabNavigator}
-          options={{ animation: 'slide_from_bottom' }}>
-        </Stack.Screen>
-        <Stack.Screen
-          name="qr-code"
-          component={Scanner}
-          options={{ animation: 'slide_from_bottom' }} >
-        </Stack.Screen>
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          options={{ animation: 'slide_from_bottom' }}>
-        </Stack.Screen>
-        <Stack.Screen
-          name="Payment"
-          component={PaymentScreen}
-          options={{ animation: 'slide_from_bottom' }}>
-        </Stack.Screen>
-      </Stack.Navigator>
-      <Toast />
-    </NavigationContainer>
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{ animation: 'slide_from_bottom' }} >
+          </Stack.Screen>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Restaurant" component={RestaurantScreen} />
+          <Stack.Screen name="DinningTable" component={DinningTableScreen} />
+          <Stack.Screen name="Menus" component={Menu} />
+          <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="Order" component={OrderHistoryScreen} />
+          <Stack.Screen
+            name="Payment"
+            component={PaymentScreen}
+            options={{ animation: 'slide_from_bottom' }}>
+          </Stack.Screen>
+          <Stack.Screen
+            name="Setting"
+            component={Setting}
+            options={{ animation: 'slide_from_bottom' }}>
+          </Stack.Screen>
+          <Stack.Screen name="MainTab" component={MainTabNavigator} />
+        </Stack.Navigator>
+        <Toast />
+      </NavigationContainer>
+    </StripeProvider>
 
 
   );

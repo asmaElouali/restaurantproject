@@ -2,28 +2,35 @@ import { StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-nativ
 import React from "react";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from '../theme/theme';
 import OrderItemCard from "./OrderItemCard";
+import moment from 'moment';
+
 interface OrderHistoryCardProps {
    // navigationHandler: any;
     CartList: any;
-    CartListPrice: string;
-    OrderDate: string;
+    CartListPrice: any;
+    OrderDate: any;
+    status:any
 }
 const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
 //navigationHandler,
     CartList,
     CartListPrice,
     OrderDate,
+    status
 }) => {
+    const formattedDate = moment(OrderDate).format('MMMM Do YYYY, h:mm:ss a');
     return (
         <View style={styles.CardContainer}>
             <View style={styles.CardHeader}>
                 <View>
                     <Text style={styles.HeaderTitle}>Order Time</Text>
-                    <Text style={styles.HeaderSubtitle}>{OrderDate}</Text>
+                    <Text style={styles.HeaderSubtitle}>{formattedDate}</Text>
+                    <Text style={styles.HeaderPrice}>status of order : {status}</Text>
                 </View>
+              
                 <View style={styles.PriceContainer}>
                     <Text style={styles.HeaderTitle}>Total Amount</Text>
-                    <Text style={styles.HeaderPrice}>$ {CartListPrice}</Text>
+                    <Text style={styles.HeaderPrice}>$ {CartListPrice.toFixed(2)}</Text>
                 </View>
             </View>
             <View style={styles.ListContainer}>
@@ -31,7 +38,7 @@ const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
                     <TouchableOpacity key={index.toString()} onPress={() => {
                        // navigationHandler({ index: data.index });
                     }}>
-                        <OrderItemCard name={data.name} image={data.image} prices={data.prices} ItemPrice={data.ItemPrice} />
+                        <OrderItemCard name={data.item.name} image={{uri:data.item.image}} prices={data.item.price}  quantity={data.quantity} status={data.orderStatus} />
                     </TouchableOpacity>
                 ))}
             </View>

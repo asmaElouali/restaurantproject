@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { COLORS, FONTFAMILY } from "../theme/theme";
+
+
 export const global_styles = StyleSheet.create({
     content: {
         flex: 1,
@@ -54,23 +57,27 @@ export const global_styles = StyleSheet.create({
         height:'100%',
         flex:1,
         flexDirection:'row',
-        marginTop:'3%',
+        marginTop:'1%',
         justifyContent:'center'
     },
     menuCardItem: {
-        width:wp('35%'),
-        height:hp('27.5%'),
-        backgroundColor:'green',
-        margin:'7.5%',
+        width:wp('44%'),
+        height:hp('19%'),
+        backgroundColor:COLORS.primaryOrangeHex,
+        margin:'2.8%',
         borderRadius:8,
         alignItems:'center',
         justifyContent: 'center',
     },
     menuCardItemTxt:{
-        fontFamily:"OpenSans-Bold",
-        fontSize:hp('1.75%'),
-        color:'dark_grey',
+        fontFamily:FONTFAMILY.poppins_extrabold,
+        fontSize:hp('2.75%'),
+        color:COLORS.primaryBlackHex,
         paddingTop:hp('2%'),
-    }
-
+    },
+    ScreenContainer:{
+        flex: 1,
+        backgroundColor: COLORS.primaryBlackHex,
+    },
+   
 })
